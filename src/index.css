@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Naskh Arabic', 'Segoe UI', Tahoma, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Thin, paper-coloured scrollbar for page content (shown only if a page overflows) */
+.page-scroll {
+  padding-inline-end: 4px;
+}
+.page-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.page-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.page-scroll::-webkit-scrollbar-thumb {
+  background: #d6c9ae;
+  border-radius: 999px;
+}
+.page-scroll::-webkit-scrollbar-thumb:hover {
+  background: #b8a582;
+}
+.page-scroll::-webkit-scrollbar-button {
+  display: none;
+}
+@supports not selector(::-webkit-scrollbar) {
+  .page-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #d6c9ae transparent;
+  }
+}
