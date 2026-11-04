@@ -25,7 +25,8 @@ export default function ZoomLayer({ zoom, children }: { zoom: number; children: 
     <div
       onPointerMove={follow}
       onPointerDown={follow}
-      className={`overflow-hidden ${zoomed ? "cursor-zoom-in touch-none" : ""}`}
+      // Clip only while magnifying; at normal size the book's shadow must be free to spread out
+      className={zoomed ? "cursor-zoom-in touch-none overflow-hidden" : ""}
     >
       <div
         style={{
