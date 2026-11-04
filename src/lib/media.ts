@@ -1,0 +1,13 @@
+import { useSyncExternalStore } from 'react'
+
+/** True while the CSS media query matches; updates when the screen is resized or rotated. */
+export function useMediaQuery(query: string) {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia(query)
+      mq.addEventListener('change', onChange)
+      return () => mq.removeEventListener('change', onChange)
+    },
+    () => window.matchMedia(query).matches,
+  )
+}

@@ -13,7 +13,7 @@ export function Cover() {
       </div>
       <h1 className="text-[8.5cqw] font-bold">الطاقة وأشكالها</h1>
       <p className="text-[3cqw] text-indigo-200">كتاب الفيزياء التفاعلي</p>
-      <p className="mt-[5cqw] text-[2.4cqw] text-indigo-300">اضغط على حافة الصفحة اليسرى أو زر «التالي» للفتح</p>
+      <p className="mt-[5cqw] text-[2.4cqw] text-indigo-300">اضغط على حافة الصفحة اليسرى أو زر ← للفتح، أو اسحب الصفحة على الهاتف</p>
     </div>
   )
 }
