@@ -6,7 +6,7 @@ export function Tabs<T extends string>({
   value,
   onChange,
 }: {
-  items: { id: T; label: string }[]
+  items: { id: T; label: string; icon?: ReactNode }[]
   value: T
   onChange: (id: T) => void
 }) {
@@ -16,6 +16,8 @@ export function Tabs<T extends string>({
         <button
           key={it.id}
           type="button"
+          aria-label={it.icon ? it.label : undefined}
+          aria-pressed={value === it.id}
           onClick={() => onChange(it.id)}
           className={`flex-1 rounded-xl border bg-white px-[1cqw] py-[0.9cqw] text-[length:max(2cqw,9px)] leading-tight transition ${
             value === it.id
@@ -23,7 +25,7 @@ export function Tabs<T extends string>({
               : 'border-stone-300 text-stone-700 hover:border-stone-400'
           }`}
         >
-          {it.label}
+          {it.icon ?? it.label}
         </button>
       ))}
     </div>
@@ -54,15 +56,18 @@ export function Btn({
   onClick,
   primary = false,
   disabled = false,
+  label,
 }: {
   children: ReactNode
   onClick: () => void
   primary?: boolean
   disabled?: boolean
+  label?: string
 }) {
   return (
     <button
       type="button"
+      aria-label={label}
       onClick={onClick}
       disabled={disabled}
       className={`shrink-0 rounded-full px-[2.5cqw] py-[0.7cqw] text-[length:max(1.9cqw,9px)] font-medium transition disabled:opacity-40 ${
@@ -189,11 +194,13 @@ export function BarChart({
   max,
   signs,
   allowNeg = false,
+  showValues = true,
 }: {
   bars: Bar[]
   max: number
   signs?: string[]
   allowNeg?: boolean
+  showValues?: boolean
 }) {
   const neg = allowNeg || bars.some((b) => b.value < -1e-9)
   const slot = 100
@@ -213,17 +220,19 @@ export function BarChart({
           return (
             <g key={i}>
               <rect x={x} y={y} width={52} height={Math.max(h, 0.6)} rx={3} fill={b.color} />
-              <text
-                x={x + 26}
-                y={b.value >= 0 ? y - 6 : axis - 6}
-                textAnchor="middle"
-                fontSize={14}
-                fontWeight={600}
-                fill="#292524"
-                direction="ltr"
-              >
-                {b.text ?? Math.round(b.value)}
-              </text>
+              {showValues && (
+                <text
+                  x={x + 26}
+                  y={b.value >= 0 ? y - 6 : axis - 6}
+                  textAnchor="middle"
+                  fontSize={14}
+                  fontWeight={600}
+                  fill="#292524"
+                  direction="ltr"
+                >
+                  {b.text ?? Math.round(b.value)}
+                </text>
+              )}
               <text x={x + 26} y={H - 4} textAnchor="middle" fontSize={14} fill="#57534e" direction="ltr">
                 {b.label}
               </text>

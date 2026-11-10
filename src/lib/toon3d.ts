@@ -10,6 +10,7 @@ export function createToonWorld(
   stage: HTMLElement,
   {
     frustum = 2.4,
+    minHalfWidth = 0,
     target = [0, 0.2, 0] as Vec3,
     /** Camera position relative to the target: [6,6,6] = isometric corner, [0,1,10] = front view. */
     offset = [6, 6, 6] as Vec3,
@@ -123,10 +124,11 @@ export function createToonWorld(
     if (!w || !h) return
     renderer.setSize(w, h, false)
     const aspect = w / h
-    camera.left = -frustum * aspect
-    camera.right = frustum * aspect
-    camera.top = frustum
-    camera.bottom = -frustum
+    const halfHeight = Math.max(frustum, minHalfWidth / aspect)
+    camera.left = -halfHeight * aspect
+    camera.right = halfHeight * aspect
+    camera.top = halfHeight
+    camera.bottom = -halfHeight
     camera.updateProjectionMatrix()
   }
   const observer = new ResizeObserver(() => {
